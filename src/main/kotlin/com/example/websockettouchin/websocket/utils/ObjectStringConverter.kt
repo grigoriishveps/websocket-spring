@@ -21,11 +21,4 @@ class ObjectStringConverter(
             .doOnError { logger.error("Error converting [${`object`}] to String.", it) }
     }
 
-    fun <T> stringToObject1(data: String?, clazz: Class<T>): T {
-        return objectMapper.readValue(data, clazz)
-    }
-
-    fun <T> objectToString1(`object`: T): String {
-        return objectMapper.writeValueAsString(`object`)
-    }
 }

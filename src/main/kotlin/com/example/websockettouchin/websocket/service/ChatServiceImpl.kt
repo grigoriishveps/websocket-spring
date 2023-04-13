@@ -13,7 +13,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 @Service
-class ChatServiceImpl (
+class ChatServiceImpl(
     val logger: Logger,
     val sinkWrapper: SinkWrapper,
     val chatRepository: ChatRepository,
@@ -72,12 +72,22 @@ class ChatServiceImpl (
     }
 
     override fun sendEventToUserId(userId: UUID, webSocketEvent: WebSocketEvent): Mono<Void> {
-        return Mono.fromCallable { sinkWrapper.sinks.emitNext(SendTo(userId, webSocketEvent), Sinks.EmitFailureHandler.FAIL_FAST) }
+        return Mono.fromCallable {
+            sinkWrapper.sinks.emitNext(
+                SendTo(userId, webSocketEvent),
+                Sinks.EmitFailureHandler.FAIL_FAST
+            )
+        }
             .then()
     }
 
     override fun sendEventToAll(webSocketEvent: CommonMessage): Mono<Void> {
-        return Mono.fromCallable { sinkWrapper.unicastSink.emitNext(webSocketEvent, Sinks.EmitFailureHandler.FAIL_FAST) }
+        return Mono.fromCallable {
+            sinkWrapper.unicastSink.emitNext(
+                webSocketEvent,
+                Sinks.EmitFailureHandler.FAIL_FAST
+            )
+        }
             .then()
     }
 }

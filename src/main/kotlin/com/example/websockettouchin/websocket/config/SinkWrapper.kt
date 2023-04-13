@@ -10,8 +10,8 @@ import reactor.core.publisher.Sinks;
 class SinkWrapper {
     val sinks: Sinks.Many<SendTo> = Sinks.many()
         .multicast()
-        .onBackpressureBuffer(SMALL_BUFFER_SIZE , false)
+        .onBackpressureBuffer(SMALL_BUFFER_SIZE, false)
     val unicastSink: Sinks.Many<CommonMessage> = Sinks.many()
         .multicast()
-        .onBackpressureBuffer(SMALL_BUFFER_SIZE , false)
+        .onBackpressureBuffer(SMALL_BUFFER_SIZE, false)
 }

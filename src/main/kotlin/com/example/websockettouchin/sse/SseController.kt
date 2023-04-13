@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Flux
-import reactor.core.publisher.FluxSink
 import java.time.Duration
 import java.time.LocalTime
-
 
 @RestController
 @RequestMapping("/sse")
@@ -53,7 +51,7 @@ class SseController(
                 ServerSentEvent.builder<String>()
                     .id("start")
                     // If other need in client change eventListner
-                    .event("message")
+                    .event("lol")
                     .data("hello")
                     .retry(Duration.ofSeconds(5))
                     .build()

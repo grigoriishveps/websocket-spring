@@ -6,7 +6,6 @@ import com.example.websockettouchin.websocket.dto.NewMessageEvent
 import com.example.websockettouchin.websocket.repository.ChatRepository
 import com.example.websockettouchin.websocket.service.ChatService
 import com.example.websockettouchin.websocket.utils.ObjectStringConverter
-import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.jsonwebtoken.Claims
 import org.slf4j.Logger
@@ -15,15 +14,9 @@ import org.springframework.stereotype.Component
 import org.springframework.web.reactive.socket.WebSocketHandler
 import org.springframework.web.reactive.socket.WebSocketMessage
 import org.springframework.web.reactive.socket.WebSocketSession
-import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import reactor.core.publisher.SynchronousSink
-import java.time.Duration
-import java.time.LocalDateTime.now
 import java.util.*
-import java.util.UUID.randomUUID
 import java.util.concurrent.ConcurrentHashMap
-import kotlin.math.log
 
 data class Event (
     val eventId: String? = "",
