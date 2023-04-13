@@ -1,6 +1,5 @@
 package com.example.websockettouchin.websocket.dto
 
-import com.example.websockettouchin.websocket.dto.ChatMember
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
@@ -16,6 +15,7 @@ open class CommonMessage (
     val sender: ChatMember,
     @JsonSerialize(using = LocalDateTimeSerializer::class)
     @JsonDeserialize(using = LocalDateTimeDeserializer::class)
+    val content: String,
     val messageDate: LocalDateTime,
     var seen: Boolean
 )

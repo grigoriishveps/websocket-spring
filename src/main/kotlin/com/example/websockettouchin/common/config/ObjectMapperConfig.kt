@@ -1,5 +1,8 @@
-package com.example.websockettouchin.websocket
+package com.example.websockettouchin.common.config
 
+import com.example.websockettouchin.websocket.dto.MarkMessageAsRead
+import com.example.websockettouchin.websocket.dto.NewMessageEvent
+import com.example.websockettouchin.websocket.dto.TextMessage
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.databind.jsontype.NamedType
@@ -9,13 +12,11 @@ import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.web.socket.TextMessage
 
 @Configuration
 class ObjectMapperConfig {
-
     @Bean
-    fun objectMapper (): ObjectMapper = ObjectMapper()
+    fun objectMapper(): ObjectMapper = ObjectMapper()
         .registerModule(JavaTimeModule())
         .registerModule(Jdk8Module())
         .registerModule(ParameterNamesModule())
@@ -23,11 +24,9 @@ class ObjectMapperConfig {
         .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
         .apply {
             registerSubtypes(
-//                NamedType(NewMessageEvent::class.java, "NewMessageEvent"),
-//                NamedType(MarkMessageAsRead::class.java, "MarkMessageAsRead"),
+                NamedType(NewMessageEvent::class.java, "NewMessageEvent"),
+                NamedType(MarkMessageAsRead::class.java, "MarkMessageAsRead"),
                 NamedType(TextMessage::class.java, "TextMessage"),
-//                NamedType(ImageMessage::class.java, "ImageMessage")
             )
         }
-
 }

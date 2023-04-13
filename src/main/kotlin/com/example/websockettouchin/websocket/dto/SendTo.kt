@@ -1,7 +1,8 @@
 package com.example.websockettouchin.websocket.dto
 
 import java.util.*
-data class ChatMember(
+
+data class SendTo(
     val userId: UUID,
-    var fullName: String,
+    val event: WebSocketEvent
 )

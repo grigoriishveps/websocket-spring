@@ -1,4 +1,4 @@
-package com.example.websockettouchin.websocket.config
+package com.example.websockettouchin.common.config
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

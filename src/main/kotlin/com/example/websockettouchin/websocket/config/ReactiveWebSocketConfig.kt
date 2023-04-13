@@ -1,22 +1,28 @@
 package com.example.websockettouchin.websocket.config
 
+import com.example.websockettouchin.websocket.handler.ChatWebSocketHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.web.servlet.HandlerMapping
-import org.springframework.web.socket.WebSocketHandler
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.reactive.HandlerMapping
+import org.springframework.web.reactive.handler.SimpleUrlHandlerMapping
+import org.springframework.web.reactive.socket.WebSocketHandler
+import org.springframework.web.reactive.socket.server.support.WebSocketHandlerAdapter
+import java.util.*
+import java.util.Map
 
 @Configuration
-class ReactiveWebSocketConfig {
+class ReactiveWebSocketConfig(
+    private val chatWebSocketHandler: ChatWebSocketHandler
+) {
 
     @Bean
-    fun webSocketHandlerMapping(chatWebSocketHandler: ChatWebSocketHandler): HandlerMapping {
-        val map: MutableMap<String, WebSocketHandler> = HashMap()
-        map["/ws/chat"] = chatWebSocketHandler
+    fun webSocketHandlerMapping(): HandlerMapping {
+        val map = Map.of<String, WebSocketHandler>("/ws/chat", chatWebSocketHandler)
+        val handlerMapping = SimpleUrlHandlerMapping(map, 1)
 
-        val handlerMapping = SimpleUrlHandlerMapping()
         handlerMapping.setCorsConfigurations(Collections.singletonMap("*", CorsConfiguration().applyPermitDefaultValues()))
-        handlerMapping.order = 1
-        handlerMapping.urlMap = map
+
         return handlerMapping
     }
 
@@ -24,4 +30,5 @@ class ReactiveWebSocketConfig {
     fun handlerAdapter(): WebSocketHandlerAdapter {
         return WebSocketHandlerAdapter()
     }
+
 }
